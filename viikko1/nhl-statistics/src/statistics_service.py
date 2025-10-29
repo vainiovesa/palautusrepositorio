@@ -1,5 +1,10 @@
-from player_reader import PlayerReader
+from enum import Enum
 
+
+class SortBy(Enum):
+    POINTS = 1
+    GOALS = 2
+    ASSISTS = 3
 
 
 class StatisticsService:
@@ -23,15 +28,27 @@ class StatisticsService:
 
         return list(players_of_team)
 
-    def top(self, how_many):
+    def top(self, how_many, sortby=SortBy.POINTS):
         # metodin käyttämä apufufunktio voidaan määritellä näin
         def sort_by_points(player):
             return player.points
 
+        def sort_by_goals(player):
+            return player.goals
+
+        def sort_by_assists(player):
+            return player.assists
+
+        sort_key = sort_by_points
+        if sortby == SortBy.GOALS:
+            sort_key = sort_by_goals
+        if sortby == SortBy.ASSISTS:
+            sort_key = sort_by_assists
+
         sorted_players = sorted(
             self._players,
             reverse=True,
-            key=sort_by_points
+            key=sort_key
         )
 
         result = []
