@@ -14,12 +14,16 @@ class Player:
 class PlayerReader:
     def __init__(self, url):
         response = requests.get(url).json()
+        nationalities = set()
 
         self.players = []
 
         for player_dict in response:
             player = Player(player_dict)
             self.players.append(player)
+            nationalities.add(player.nationality)
+
+        self.nationalities = list(nationalities)
 
 class PlayerStats:
     def __init__(self, reader):
