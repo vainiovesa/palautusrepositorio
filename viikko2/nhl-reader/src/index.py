@@ -17,7 +17,7 @@ def main():
     # print("Oliot:")
     print("Players from FIN:\n")
 
-    for player in players:
+    for player in sorted(players, key=lambda x: x.goals + x.assists, reverse=True):
         if player.nationality == "FIN":
             print(player)
 
