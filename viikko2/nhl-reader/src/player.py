@@ -1,19 +1,21 @@
 import requests
 
-class Player:
-    def __init__(self, dict):
-        self.name = dict['name']
-        self.nationality = dict['nationality']
-        self.team = dict['team']
-        self.goals = dict['goals']
-        self.assists = dict['assists']
+class Player: # pylint: disable=too-few-public-methods
+    def __init__(self, player_dict):
+        self.name = player_dict['name']
+        self.nationality = player_dict['nationality']
+        self.team = player_dict['team']
+        self.goals = player_dict['goals']
+        self.assists = player_dict['assists']
 
     def __str__(self):
-        return f"{self.name:20} {self.team:15} {self.goals:<2} + {self.assists:<2} = {self.goals + self.assists}"
+        name_team = f"{self.name:20} {self.team:15} "
+        points = f"{self.goals:<2} + {self.assists:<2} = {self.goals + self.assists}"
+        return name_team + points
 
-class PlayerReader:
+class PlayerReader: # pylint: disable=too-few-public-methods
     def __init__(self, url):
-        response = requests.get(url).json()
+        response = requests.get(url, timeout=10).json()
         nationalities = set()
 
         self.players = []
@@ -25,7 +27,7 @@ class PlayerReader:
 
         self.nationalities = list(nationalities)
 
-class PlayerStats:
+class PlayerStats: # pylint: disable=too-few-public-methods
     def __init__(self, reader):
         self.reader = reader
 
