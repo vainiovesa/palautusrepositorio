@@ -1,69 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.12.3 on linux)" generated="2025-11-11T21:33:55.246474" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.12.3 on linux)" generated="2025-11-11T21:46:54.392672" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests" source="/home/vesavain/Downloads/Kurssit/Syksy 25/ohtu/palautusrepositorio/viikko3/hello-robot/src/tests">
 <suite id="s1-s1" name="Increase Counter" source="/home/vesavain/Downloads/Kurssit/Syksy 25/ohtu/palautusrepositorio/viikko3/hello-robot/src/tests/increase_counter.robot">
 <test id="s1-s1-t1" name="Increase Counter Once" line="5">
 <kw name="Counter Value Should Be" owner="CounterLibrary">
 <arg>0</arg>
-<status status="PASS" start="2025-11-11T21:33:55.304308" elapsed="0.000320"/>
+<status status="PASS" start="2025-11-11T21:46:54.421925" elapsed="0.000164"/>
 </kw>
 <kw name="Increase Counter" owner="CounterLibrary">
-<status status="PASS" start="2025-11-11T21:33:55.304824" elapsed="0.000114"/>
+<status status="PASS" start="2025-11-11T21:46:54.422277" elapsed="0.000099"/>
 </kw>
 <kw name="Counter Value Should Be" owner="CounterLibrary">
 <arg>1</arg>
-<status status="PASS" start="2025-11-11T21:33:55.305061" elapsed="0.000101"/>
+<status status="PASS" start="2025-11-11T21:46:54.422493" elapsed="0.000117"/>
 </kw>
-<status status="PASS" start="2025-11-11T21:33:55.303553" elapsed="0.001787"/>
+<status status="PASS" start="2025-11-11T21:46:54.421220" elapsed="0.001519"/>
 </test>
 <test id="s1-s1-t2" name="Increase Counter Many Times" line="10">
 <kw name="Counter Value Should Be" owner="CounterLibrary">
 <arg>0</arg>
-<status status="PASS" start="2025-11-11T21:33:55.306210" elapsed="0.000155"/>
+<status status="PASS" start="2025-11-11T21:46:54.423212" elapsed="0.000113"/>
 </kw>
 <kw name="Increase Counter" owner="CounterLibrary">
-<status status="PASS" start="2025-11-11T21:33:55.306530" elapsed="0.000121"/>
+<status status="PASS" start="2025-11-11T21:46:54.423448" elapsed="0.000087"/>
 </kw>
 <kw name="Increase Counter" owner="CounterLibrary">
-<status status="PASS" start="2025-11-11T21:33:55.306777" elapsed="0.000079"/>
+<status status="PASS" start="2025-11-11T21:46:54.423640" elapsed="0.000084"/>
 </kw>
 <kw name="Increase Counter" owner="CounterLibrary">
-<status status="PASS" start="2025-11-11T21:33:55.306953" elapsed="0.000072"/>
+<status status="PASS" start="2025-11-11T21:46:54.423833" elapsed="0.000078"/>
 </kw>
 <kw name="Counter Value Should Be" owner="CounterLibrary">
 <arg>3</arg>
-<status status="PASS" start="2025-11-11T21:33:55.307113" elapsed="0.000095"/>
+<status status="PASS" start="2025-11-11T21:46:54.424006" elapsed="0.000081"/>
 </kw>
-<status status="PASS" start="2025-11-11T21:33:55.305637" elapsed="0.001708"/>
+<status status="PASS" start="2025-11-11T21:46:54.422936" elapsed="0.001301"/>
 </test>
 <test id="s1-s1-t3" name="Increment Counter By Amount" line="17">
 <kw name="Counter Value Should Be" owner="CounterLibrary">
 <arg>0</arg>
-<status status="PASS" start="2025-11-11T21:33:55.307805" elapsed="0.000106"/>
+<status status="PASS" start="2025-11-11T21:46:54.424760" elapsed="0.000118"/>
 </kw>
 <kw name="Increment Counter By" owner="CounterLibrary">
 <arg>5</arg>
-<status status="PASS" start="2025-11-11T21:33:55.308033" elapsed="0.000088"/>
+<status status="PASS" start="2025-11-11T21:46:54.424978" elapsed="0.000082"/>
 </kw>
 <kw name="Counter Value Should Be" owner="CounterLibrary">
 <arg>5</arg>
-<status status="PASS" start="2025-11-11T21:33:55.308231" elapsed="0.000087"/>
+<status status="PASS" start="2025-11-11T21:46:54.425147" elapsed="0.000090"/>
 </kw>
-<status status="PASS" start="2025-11-11T21:33:55.307546" elapsed="0.000895"/>
+<status status="PASS" start="2025-11-11T21:46:54.424471" elapsed="0.000879"/>
 </test>
-<status status="PASS" start="2025-11-11T21:33:55.300393" elapsed="0.008519"/>
+<test id="s1-s1-t4" name="Reset Counter After One Increment" line="23">
+<kw name="Counter Value Should Be" owner="CounterLibrary">
+<arg>0</arg>
+<status status="PASS" start="2025-11-11T21:46:54.425743" elapsed="0.000094"/>
+</kw>
+<kw name="Increase Counter" owner="CounterLibrary">
+<status status="PASS" start="2025-11-11T21:46:54.425938" elapsed="0.000077"/>
+</kw>
+<kw name="Counter Value Should Be" owner="CounterLibrary">
+<arg>1</arg>
+<status status="PASS" start="2025-11-11T21:46:54.426098" elapsed="0.000079"/>
+</kw>
+<kw name="Reset Counter" owner="CounterLibrary">
+<status status="PASS" start="2025-11-11T21:46:54.426293" elapsed="0.000072"/>
+</kw>
+<kw name="Counter Value Should Be" owner="CounterLibrary">
+<arg>0</arg>
+<status status="PASS" start="2025-11-11T21:46:54.426448" elapsed="0.000074"/>
+</kw>
+<status status="PASS" start="2025-11-11T21:46:54.425506" elapsed="0.001114"/>
+</test>
+<test id="s1-s1-t5" name="Reset Counter After Several Increments" line="30">
+<kw name="Counter Value Should Be" owner="CounterLibrary">
+<arg>0</arg>
+<status status="PASS" start="2025-11-11T21:46:54.427020" elapsed="0.000106"/>
+</kw>
+<kw name="Increment Counter By" owner="CounterLibrary">
+<arg>5</arg>
+<status status="PASS" start="2025-11-11T21:46:54.427232" elapsed="0.000080"/>
+</kw>
+<kw name="Counter Value Should Be" owner="CounterLibrary">
+<arg>5</arg>
+<status status="PASS" start="2025-11-11T21:46:54.427397" elapsed="0.000073"/>
+</kw>
+<kw name="Reset Counter" owner="CounterLibrary">
+<status status="PASS" start="2025-11-11T21:46:54.427550" elapsed="0.000064"/>
+</kw>
+<kw name="Counter Value Should Be" owner="CounterLibrary">
+<arg>0</arg>
+<status status="PASS" start="2025-11-11T21:46:54.427691" elapsed="0.000069"/>
+</kw>
+<status status="PASS" start="2025-11-11T21:46:54.426781" elapsed="0.001069"/>
+</test>
+<status status="PASS" start="2025-11-11T21:46:54.418033" elapsed="0.010199"/>
 </suite>
-<status status="PASS" start="2025-11-11T21:33:55.247560" elapsed="0.061805"/>
+<status status="PASS" start="2025-11-11T21:46:54.393952" elapsed="0.034724"/>
 </suite>
 <statistics>
 <total>
-<stat pass="3" fail="0" skip="0">All Tests</stat>
+<stat pass="5" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="Tests" id="s1" pass="3" fail="0" skip="0">Tests</stat>
-<stat name="Increase Counter" id="s1-s1" pass="3" fail="0" skip="0">Tests.Increase Counter</stat>
+<stat name="Tests" id="s1" pass="5" fail="0" skip="0">Tests</stat>
+<stat name="Increase Counter" id="s1-s1" pass="5" fail="0" skip="0">Tests.Increase Counter</stat>
 </suite>
 </statistics>
 <errors>
