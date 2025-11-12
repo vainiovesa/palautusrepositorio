@@ -14,9 +14,6 @@ Click Register Link
     Register Page Should Be Open
 
 *** Keywords ***
-Go To Starting Page
-    Go To  ${HOME_URL}
-
 Reset Application And Go To Starting Page
   Reset Application
   Go To Starting Page
