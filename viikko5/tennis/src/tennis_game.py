@@ -9,13 +9,13 @@ class TennisGame:
         self.player_scores[player_name] += 1
 
     def get_score(self):
-        limit = 3
+        deuce_threshold = 3
         player1_score = self.player_scores[self.player1_name]
         player2_score = self.player_scores[self.player2_name]
 
         if player1_score == player2_score:
             score_str = self._scores_equal(player1_score)
-        elif player1_score > limit or player2_score > limit:
+        elif player1_score > deuce_threshold or player2_score > deuce_threshold:
             score_str = self._players_score_over_limit(player1_score, player2_score)
         else:
             score_str = self._scores_under_limit(player1_score, player2_score)
