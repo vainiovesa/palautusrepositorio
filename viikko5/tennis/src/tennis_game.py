@@ -41,7 +41,6 @@ class TennisGame:
             score_str = "Win for player1"
         else:
             score_str = "Win for player2"
-        
         return score_str
 
     def _scores_under_limit(self, player1_score, player2_score):
