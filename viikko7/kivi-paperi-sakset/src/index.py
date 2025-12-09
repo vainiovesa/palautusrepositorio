@@ -1,4 +1,4 @@
-from kps import KPSPelaajaVsPelaaja, KPSTekoaly, KPSParempiTekoaly
+from kps import KPSPelaajaVsPelaaja, KPSHuonompiTekoaly, KPSParempiTekoaly
 
 def main():
     while True:
@@ -23,7 +23,7 @@ def main():
                 "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
             )
 
-            yksinpeli = KPSTekoaly()
+            yksinpeli = KPSHuonompiTekoaly()
             yksinpeli.pelaa()
         elif vastaus.endswith("c"):
             print(

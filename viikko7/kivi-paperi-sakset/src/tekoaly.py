@@ -17,8 +17,10 @@ class Tekoaly:
         # ei tehdä mitään
         pass
 
-# "Muistava tekoäly"
+
 class TekoalyParannettu:
+    """Muistava tekoäly"""
+
     def __init__(self, muistin_koko):
         self._muisti = [None] * muistin_koko
         self._vapaa_muisti_indeksi = 0

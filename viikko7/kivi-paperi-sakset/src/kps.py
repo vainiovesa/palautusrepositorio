@@ -2,6 +2,9 @@ from tuomari import Tuomari
 from tekoaly import Tekoaly, TekoalyParannettu
 
 
+MEMORY_SIZE = 10
+
+
 class KiviPaperiSakset:
     def pelaa(self):
         tuomari = Tuomari()
@@ -29,7 +32,6 @@ class KiviPaperiSakset:
         return siirto == "k" or siirto == "p" or siirto == "s"
 
 
-
 class KPSPelaajaVsPelaaja(KiviPaperiSakset):
     def _toisen_siirto(self, ensimmaisen_siirto):
         tokan_siirto = input("Toisen pelaajan siirto: ")
@@ -38,23 +40,19 @@ class KPSPelaajaVsPelaaja(KiviPaperiSakset):
 
 
 class KPSTekoaly(KiviPaperiSakset):
-    def __init__(self):
-        self.tekoaly = Tekoaly()
-
-    def _toisen_siirto(self, ensimmaisen_siirto):
-        tokan_siirto = self.tekoaly.anna_siirto()
-        print(f"Tietokone valitsi: {tokan_siirto}")
-
-        return tokan_siirto
-
-
-class KPSParempiTekoaly(KiviPaperiSakset):
-    def __init__(self):
-        self.tekoaly = TekoalyParannettu(10)
-
     def _toisen_siirto(self, ensimmaisen_siirto):
         tokan_siirto = self.tekoaly.anna_siirto()
         print(f"Tietokone valitsi: {tokan_siirto}")
         self.tekoaly.aseta_siirto(ensimmaisen_siirto)
 
         return tokan_siirto
+
+
+class KPSHuonompiTekoaly(KPSTekoaly):
+    def __init__(self):
+        self.tekoaly = Tekoaly()
+
+
+class KPSParempiTekoaly(KPSTekoaly):
+    def __init__(self):
+        self.tekoaly = TekoalyParannettu(MEMORY_SIZE)
