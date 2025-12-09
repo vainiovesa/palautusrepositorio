@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Pelaa - Kivi-Paperi-Sakset{% endblock %}
+
+{% block content %}
+<div class="game-area">
+    <h2>
+        {% if game_type == 'kaksinpeli' %}
+            👥 Kaksinpeli
+        {% elif game_type == 'yksinpeli' %}
+            🤖 Tekoäly (helppo)
+        {% else %}
+            🧠 Tekoäly (haastava)
+        {% endif %}
+    </h2>
+    
+    <div class="scoreboard">
+        <h3>Tilanne</h3>
+        <div class="score-display">
+            <div class="score-item">
+                <span class="label">Pelaaja 1:</span>
+                <span class="value">{{ tuomari.ekan_pisteet }}</span>
+            </div>
+            <div class="score-item">
+                <span class="label">
+                    {% if game_type == 'kaksinpeli' %}
+                        Pelaaja 2:
+                    {% else %}
+                        Tietokone:
+                    {% endif %}
+                </span>
+                <span class="value">{{ tuomari.tokan_pisteet }}</span>
+            </div>
+            <div class="score-item">
+                <span class="label">Tasapelit:</span>
+                <span class="value">{{ tuomari.tasapelit }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-form">
+        {% if game_type == 'kaksinpeli' %}
+            <div class="two-player-instructions">
+                <p>📋 <strong>Ohjeet:</strong> Pelaaja 1 valitsee siirtonsa ja antaa vuoron pelaaja 2:lle. Pelaaja 2 valitsee siirtonsa paljastamatta sitä pelaaja 1:lle.</p>
+            </div>
+        {% endif %}
+        
+        <form method="POST" action="{{ url_for('pelaa') }}" id="gameForm">
+            <div class="player-section" id="player1-section">
+                <h4>Pelaaja 1 - valitse siirtosi:</h4>
+                <div class="move-buttons">
+                    {% if game_type == 'kaksinpeli' %}
+                        <label class="move-radio">
+                            <input type="radio" name="pelaaja1_siirto" value="k" required onchange="showPlayer2()">
+                            <span class="move-label">🪨<br>Kivi</span>
+                        </label>
+                        <label class="move-radio">
+                            <input type="radio" name="pelaaja1_siirto" value="p" required onchange="showPlayer2()">
+                            <span class="move-label">📄<br>Paperi</span>
+                        </label>
+                        <label class="move-radio">
+                            <input type="radio" name="pelaaja1_siirto" value="s" required onchange="showPlayer2()">
+                            <span class="move-label">✂️<br>Sakset</span>
+                        </label>
+                    {% else %}
+                        <button type="submit" name="pelaaja1_siirto" value="k" class="move-btn">
+                            🪨<br>Kivi
+                        </button>
+                        <button type="submit" name="pelaaja1_siirto" value="p" class="move-btn">
+                            📄<br>Paperi
+                        </button>
+                        <button type="submit" name="pelaaja1_siirto" value="s" class="move-btn">
+                            ✂️<br>Sakset
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if game_type == 'kaksinpeli' %}
+            <div class="player-section" id="player2-section" style="display: none;">
+                <h4>Pelaaja 2 - valitse siirtosi:</h4>
+                <p class="warning-text">⚠️ Varmista, että pelaaja 1 ei näe valintaasi!</p>
+                <div class="move-buttons">
+                    <label class="move-radio">
+                        <input type="radio" name="pelaaja2_siirto" value="k" required>
+                        <span class="move-label">🪨<br>Kivi</span>
+                    </label>
+                    <label class="move-radio">
+                        <input type="radio" name="pelaaja2_siirto" value="p" required>
+                        <span class="move-label">📄<br>Paperi</span>
+                    </label>
+                    <label class="move-radio">
+                        <input type="radio" name="pelaaja2_siirto" value="s" required>
+                        <span class="move-label">✂️<br>Sakset</span>
+                    </label>
+                </div>
+                <div class="submit-section">
+                    <button type="submit" class="btn btn-primary">Pelaa kierros</button>
+                </div>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+    
+    <script>
+        function showPlayer2() {
+            const player1Section = document.getElementById('player1-section');
+            const player2Section = document.getElementById('player2-section');
+            
+            // Hide player 1 section and show player 2 section
+            player1Section.style.display = 'none';
+            player2Section.style.display = 'block';
+            
+            // Scroll to player 2 section
+            player2Section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+    
+    {% if historia %}
+    <div class="history">
+        <h3>Pelihistoria (viimeisimmät 10 kierrosta)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Kierros</th>
+                    <th>Pelaaja 1</th>
+                    <th>
+                        {% if game_type == 'kaksinpeli' %}
+                            Pelaaja 2
+                        {% else %}
+                            Tietokone
+                        {% endif %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(historia|length - 1, [historia|length - 11, -1]|max, -1) %}
+                <tr>
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                        {% if historia[i].pelaaja1 == 'k' %}🪨 Kivi
+                        {% elif historia[i].pelaaja1 == 'p' %}📄 Paperi
+                        {% else %}✂️ Sakset{% endif %}
+                    </td>
+                    <td>
+                        {% if historia[i].pelaaja2 == 'k' %}🪨 Kivi
+                        {% elif historia[i].pelaaja2 == 'p' %}📄 Paperi
+                        {% else %}✂️ Sakset{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    
+    <div class="actions">
+        <a href="{{ url_for('lopeta') }}" class="btn btn-secondary">Lopeta peli</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Aloitus - Kivi-Paperi-Sakset{% endblock %}
+
+{% block content %}
+<div class="welcome">
+    <h2>Tervetuloa pelaamaan!</h2>
+    <p>Valitse pelimuoto:</p>
+    
+    <div class="game-options">
+        <div class="game-card">
+            <h3>👥 Kaksinpeli</h3>
+            <p>Pelaa kaverisi kanssa samalta koneelta</p>
+            <a href="{{ url_for('valitse_peli', game_type='kaksinpeli') }}" class="btn btn-primary">Aloita peli</a>
+        </div>
+        
+        <div class="game-card">
+            <h3>🤖 Tekoäly (helppo)</h3>
+            <p>Pelaa yksinkertaista tekoälyä vastaan</p>
+            <a href="{{ url_for('valitse_peli', game_type='yksinpeli') }}" class="btn btn-primary">Aloita peli</a>
+        </div>
+        
+        <div class="game-card">
+            <h3>🧠 Tekoäly (haastava)</h3>
+            <p>Pelaa parannettua tekoälyä vastaan, joka oppii pelistäsi</p>
+            <a href="{{ url_for('valitse_peli', game_type='haastava_yksinpeli') }}" class="btn btn-primary">Aloita peli</a>
+        </div>
+    </div>
+</div>
+
+<div class="rules">
+    <h3>Säännöt</h3>
+    <ul>
+        <li>🪨 Kivi voittaa sakset</li>
+        <li>✂️ Sakset voittaa paperin</li>
+        <li>📄 Paperi voittaa kiven</li>
+    </ul>
+</div>
+{% endblock %}
