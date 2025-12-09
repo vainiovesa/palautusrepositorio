@@ -122,6 +122,8 @@ class TestInitGame:
             assert sess['tuomari']['tokan_pisteet'] == 0
             assert sess['tuomari']['tasapelit'] == 0
             assert sess['historia'] == []
+            assert sess['peli_paattynyt'] == False
+            assert sess['voittaja'] is None
 
     def test_init_yksinpeli(self, client):
         """Test initializing single-player game"""
@@ -265,3 +267,48 @@ class TestGameLogic:
             assert len(sess['historia']) == 1
             assert sess['historia'][0]['pelaaja1'] == 'k'
             assert sess['historia'][0]['pelaaja2'] == 's'
+
+    def test_peli_paattynyt_kun_pelaaja1_saa_5_voittoa(self, client):
+        """Test game ends when player 1 gets 5 wins"""
+        client.get('/valitse/kaksinpeli')
+        
+        # Player 1 wins 5 times
+        for _ in range(5):
+            client.post('/pelaa', data={
+                'pelaaja1_siirto': 'k',
+                'pelaaja2_siirto': 's'
+            })
+        
+        with client.session_transaction() as sess:
+            assert sess['peli_paattynyt'] == True
+            assert sess['voittaja'] == 1
+
+    def test_peli_paattynyt_kun_pelaaja2_saa_5_voittoa(self, client):
+        """Test game ends when player 2 gets 5 wins"""
+        client.get('/valitse/kaksinpeli')
+        
+        # Player 2 wins 5 times
+        for _ in range(5):
+            client.post('/pelaa', data={
+                'pelaaja1_siirto': 's',
+                'pelaaja2_siirto': 'k'
+            })
+        
+        with client.session_transaction() as sess:
+            assert sess['peli_paattynyt'] == True
+            assert sess['voittaja'] == 2
+
+    def test_peli_ei_paattynyt_alle_5_voitossa(self, client):
+        """Test game doesn't end with less than 5 wins"""
+        client.get('/valitse/kaksinpeli')
+        
+        # Player 1 wins 4 times
+        for _ in range(4):
+            client.post('/pelaa', data={
+                'pelaaja1_siirto': 'k',
+                'pelaaja2_siirto': 's'
+            })
+        
+        with client.session_transaction() as sess:
+            assert sess['peli_paattynyt'] == False
+            assert sess['voittaja'] is None

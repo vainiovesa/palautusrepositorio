@@ -17,6 +17,18 @@ class Tuomari:
     def __str__(self):
         return f"Pelitilanne: {self.ekan_pisteet} - {self.tokan_pisteet}\nTasapelit: {self.tasapelit}"
 
+    def peli_paattynyt(self):
+        """Palauttaa True, jos jompikumpi pelaaja on saanut 5 voittoa"""
+        return self.ekan_pisteet >= 5 or self.tokan_pisteet >= 5
+
+    def voittaja(self):
+        """Palauttaa voittajan (1 tai 2), tai None jos peli ei ole päättynyt"""
+        if self.ekan_pisteet >= 5:
+            return 1
+        elif self.tokan_pisteet >= 5:
+            return 2
+        return None
+
     # sisäinen metodi, jolla tarkastetaan tuliko tasapeli
     def _tasapeli(self, eka, toka):
         if eka == toka:

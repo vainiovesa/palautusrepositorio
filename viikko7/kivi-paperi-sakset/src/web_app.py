@@ -49,6 +49,8 @@ def init_game(game_type):
         'tasapelit': 0
     }
     session['historia'] = []
+    session['peli_paattynyt'] = False
+    session['voittaja'] = None
     
     if game_type in ['yksinpeli', 'haastava_yksinpeli']:
         session['tekoaly_muisti'] = []
@@ -132,12 +134,18 @@ def pelaa():
             'tokan_pisteet': tuomari.tokan_pisteet,
             'tasapelit': tuomari.tasapelit
         }
+        
+        # Check if game is over
+        session['peli_paattynyt'] = tuomari.peli_paattynyt()
+        session['voittaja'] = tuomari.voittaja()
         session.modified = True
     
     return render_template('pelaa.html', 
                          game_type=game_type,
                          tuomari=session['tuomari'],
-                         historia=session.get('historia', []))
+                         historia=session.get('historia', []),
+                         peli_paattynyt=session.get('peli_paattynyt', False),
+                         voittaja=session.get('voittaja'))
 
 
 @app.route('/lopeta')

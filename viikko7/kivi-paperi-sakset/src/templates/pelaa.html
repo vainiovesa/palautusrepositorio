@@ -15,7 +15,7 @@
     </h2>
     
     <div class="scoreboard">
-        <h3>Tilanne</h3>
+        <h3>Tilanne (Ensimmäinen 5 voittoon!)</h3>
         <div class="score-display">
             <div class="score-item">
                 <span class="label">Pelaaja 1:</span>
@@ -38,6 +38,28 @@
         </div>
     </div>
     
+    {% if peli_paattynyt %}
+    <div class="game-over">
+        <h3>🎉 Peli päättyi!</h3>
+        <p class="winner-announcement">
+            {% if voittaja == 1 %}
+                🏆 Pelaaja 1 voitti pelin!
+            {% elif voittaja == 2 %}
+                {% if game_type == 'kaksinpeli' %}
+                    🏆 Pelaaja 2 voitti pelin!
+                {% else %}
+                    🤖 Tietokone voitti pelin!
+                {% endif %}
+            {% endif %}
+        </p>
+        <div class="game-over-actions">
+            <a href="{{ url_for('valitse_peli', game_type=game_type) }}" class="btn btn-primary">Pelaa uudestaan</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Palaa etusivulle</a>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if not peli_paattynyt %}
     <div class="game-form">
         {% if game_type == 'kaksinpeli' %}
             <div class="two-player-instructions">
@@ -101,6 +123,7 @@
             {% endif %}
         </form>
     </div>
+    {% endif %}
     
     <script>
         function showPlayer2() {
@@ -116,7 +139,7 @@
         }
     </script>
     
-    {% if historia %}
+    {% if historia and not peli_paattynyt %}
     <div class="history">
         <h3>Pelihistoria (viimeisimmät 10 kierrosta)</h3>
         <table>
@@ -154,8 +177,10 @@
     </div>
     {% endif %}
     
+    {% if not peli_paattynyt %}
     <div class="actions">
         <a href="{{ url_for('lopeta') }}" class="btn btn-secondary">Lopeta peli</a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

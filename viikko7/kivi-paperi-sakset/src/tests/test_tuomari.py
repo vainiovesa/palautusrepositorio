@@ -115,3 +115,42 @@ class TestTuomari:
         """Test string representation at initial state"""
         expected = "Pelitilanne: 0 - 0\nTasapelit: 0"
         assert str(self.tuomari) == expected
+
+    def test_peli_paattynyt_alkutilassa(self):
+        """Test game not over at start"""
+        assert self.tuomari.peli_paattynyt() == False
+
+    def test_peli_paattynyt_kun_eka_saa_5_voittoa(self):
+        """Test game over when first player gets 5 wins"""
+        for _ in range(5):
+            self.tuomari.kirjaa_siirto("k", "s")
+        assert self.tuomari.peli_paattynyt() == True
+
+    def test_peli_paattynyt_kun_toka_saa_5_voittoa(self):
+        """Test game over when second player gets 5 wins"""
+        for _ in range(5):
+            self.tuomari.kirjaa_siirto("s", "k")
+        assert self.tuomari.peli_paattynyt() == True
+
+    def test_peli_ei_paattynyt_kun_alle_5_voittoa(self):
+        """Test game not over with less than 5 wins"""
+        for _ in range(4):
+            self.tuomari.kirjaa_siirto("k", "s")
+        assert self.tuomari.peli_paattynyt() == False
+
+    def test_voittaja_palauttaa_none_kun_peli_kesken(self):
+        """Test winner returns None when game in progress"""
+        self.tuomari.kirjaa_siirto("k", "s")
+        assert self.tuomari.voittaja() is None
+
+    def test_voittaja_palauttaa_1_kun_eka_voittaa(self):
+        """Test winner returns 1 when first player wins"""
+        for _ in range(5):
+            self.tuomari.kirjaa_siirto("k", "s")
+        assert self.tuomari.voittaja() == 1
+
+    def test_voittaja_palauttaa_2_kun_toka_voittaa(self):
+        """Test winner returns 2 when second player wins"""
+        for _ in range(5):
+            self.tuomari.kirjaa_siirto("s", "k")
+        assert self.tuomari.voittaja() == 2
