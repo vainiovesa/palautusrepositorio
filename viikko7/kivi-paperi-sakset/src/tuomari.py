@@ -1,4 +1,4 @@
-VOITTOPISTEET = 5
+VOITTOPISTEET = 3
 
 # Luokka pitää kirjaa ensimmäisen ja toisen pelaajan pisteistä sekä tasapelien määrästä.
 class Tuomari:
