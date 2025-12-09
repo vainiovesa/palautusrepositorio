@@ -3,7 +3,7 @@ from tekoaly import Tekoaly, TekoalyParannettu
 from enum import Enum
 
 
-MEMORY_SIZE = 10
+MUISTIN_KOKO = 10
 
 
 class Pelit(Enum):
@@ -36,7 +36,7 @@ class KiviPaperiSakset:
         raise Exception("Tämä metodi pitää korvata aliluokassa")
 
     def _onko_ok_siirto(self, siirto):
-        return siirto == "k" or siirto == "p" or siirto == "s"
+        return siirto in ("k", "p", "s")
 
 
 class KPSPelaajaVsPelaaja(KiviPaperiSakset):
@@ -62,7 +62,7 @@ class KPSHuonompiTekoaly(KPSTekoaly):
 
 class KPSParempiTekoaly(KPSTekoaly):
     def __init__(self):
-        self.tekoaly = TekoalyParannettu(MEMORY_SIZE)
+        self.tekoaly = TekoalyParannettu(MUISTIN_KOKO)
 
 
 def luo_peli(pelivalinta):
