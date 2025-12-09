@@ -269,11 +269,11 @@ class TestGameLogic:
             assert sess['historia'][0]['pelaaja2'] == 's'
 
     def test_peli_paattynyt_kun_pelaaja1_saa_5_voittoa(self, client):
-        """Test game ends when player 1 gets 5 wins"""
+        """Test game ends when player 1 gets 3 wins"""
         client.get('/valitse/kaksinpeli')
         
-        # Player 1 wins 5 times
-        for _ in range(5):
+        # Player 1 wins 3 times
+        for _ in range(3):
             client.post('/pelaa', data={
                 'pelaaja1_siirto': 'k',
                 'pelaaja2_siirto': 's'
@@ -284,11 +284,11 @@ class TestGameLogic:
             assert sess['voittaja'] == 1
 
     def test_peli_paattynyt_kun_pelaaja2_saa_5_voittoa(self, client):
-        """Test game ends when player 2 gets 5 wins"""
+        """Test game ends when player 2 gets 3 wins"""
         client.get('/valitse/kaksinpeli')
         
-        # Player 2 wins 5 times
-        for _ in range(5):
+        # Player 2 wins 3 times
+        for _ in range(3):
             client.post('/pelaa', data={
                 'pelaaja1_siirto': 's',
                 'pelaaja2_siirto': 'k'
@@ -299,11 +299,11 @@ class TestGameLogic:
             assert sess['voittaja'] == 2
 
     def test_peli_ei_paattynyt_alle_5_voitossa(self, client):
-        """Test game doesn't end with less than 5 wins"""
+        """Test game doesn't end with less than 3 wins"""
         client.get('/valitse/kaksinpeli')
         
-        # Player 1 wins 4 times
-        for _ in range(4):
+        # Player 1 wins 2 times
+        for _ in range(2):
             client.post('/pelaa', data={
                 'pelaaja1_siirto': 'k',
                 'pelaaja2_siirto': 's'
