@@ -1,6 +1,12 @@
 from kps import Pelit, luo_peli
 
 def main():
+    valinnat = {
+        "a": Pelit.KAKSINPELI,
+        "b": Pelit.YKSINPELI,
+        "c": Pelit.HAASTAVA_YKSINPELI
+    }
+
     while True:
         print("Valitse pelataanko"
               "\n (a) Ihmistä vastaan"
@@ -11,24 +17,12 @@ def main():
 
         vastaus = input()
 
-        if vastaus.endswith("a"):
+        if any(vastaus.endswith(letter) for letter in ("a", "b", "c")):
+            vastaus = vastaus[-1]
             print(
                 "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
             )
-
-            luo_peli(Pelit.KAKSINPELI)
-        elif vastaus.endswith("b"):
-            print(
-                "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
-            )
-
-            luo_peli(Pelit.YKSINPELI)
-        elif vastaus.endswith("c"):
-            print(
-                "Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s"
-            )
-
-            luo_peli(Pelit.HAASTAVA_YKSINPELI)
+            luo_peli(valinnat[vastaus])
         else:
             break
 
