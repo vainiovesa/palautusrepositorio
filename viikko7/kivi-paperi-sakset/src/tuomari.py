@@ -1,3 +1,4 @@
+VOITTOPISTEET = 5
 
 # Luokka pitää kirjaa ensimmäisen ja toisen pelaajan pisteistä sekä tasapelien määrästä.
 class Tuomari:
@@ -18,14 +19,14 @@ class Tuomari:
         return f"Pelitilanne: {self.ekan_pisteet} - {self.tokan_pisteet}\nTasapelit: {self.tasapelit}"
 
     def peli_paattynyt(self):
-        """Palauttaa True, jos jompikumpi pelaaja on saanut 5 voittoa"""
-        return self.ekan_pisteet >= 5 or self.tokan_pisteet >= 5
+        """Palauttaa True, jos jompikumpi pelaaja on saanut 3 voittoa"""
+        return self.ekan_pisteet >= VOITTOPISTEET or self.tokan_pisteet >= VOITTOPISTEET
 
     def voittaja(self):
         """Palauttaa voittajan (1 tai 2), tai None jos peli ei ole päättynyt"""
-        if self.ekan_pisteet >= 5:
+        if self.ekan_pisteet >= VOITTOPISTEET:
             return 1
-        elif self.tokan_pisteet >= 5:
+        elif self.tokan_pisteet >= VOITTOPISTEET:
             return 2
         return None
 

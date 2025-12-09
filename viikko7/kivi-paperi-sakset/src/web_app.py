@@ -55,6 +55,7 @@ def init_game(game_type):
     if game_type in ['yksinpeli', 'haastava_yksinpeli']:
         session['tekoaly_muisti'] = []
         session['tekoaly_siirto'] = 0
+        session['tekoaly_vapaa_indeksi'] = 0
 
 
 @app.route('/')
@@ -115,8 +116,12 @@ def pelaa():
         elif game_type == 'haastava_yksinpeli':
             from tekoaly import TekoalyParannettu
             tekoaly = TekoalyParannettu(10)
-            tekoaly._muisti = session.get('tekoaly_muisti', [None] * 10)
-            tekoaly._vapaa_muisti_indeksi = len([x for x in tekoaly._muisti if x is not None])
+            
+            # Restore AI state from session
+            saved_muisti = session.get('tekoaly_muisti', [])
+            if saved_muisti:
+                tekoaly._muisti = saved_muisti
+                tekoaly._vapaa_muisti_indeksi = session.get('tekoaly_vapaa_indeksi', 0)
             
             peli = WebKPSTekoaly(tuomari, tekoaly)
             tietokoneen_siirto = peli.pelaa_kierros(pelaaja1_siirto)
@@ -127,6 +132,7 @@ def pelaa():
                     'pelaaja2': tietokoneen_siirto
                 })
                 session['tekoaly_muisti'] = tekoaly._muisti
+                session['tekoaly_vapaa_indeksi'] = tekoaly._vapaa_muisti_indeksi
         
         # Update session with tuomari state
         session['tuomari'] = {
