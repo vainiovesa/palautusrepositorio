@@ -1,8 +1,15 @@
 from tuomari import Tuomari
 from tekoaly import Tekoaly, TekoalyParannettu
+from enum import Enum
 
 
 MEMORY_SIZE = 10
+
+
+class Pelit(Enum):
+    KAKSINPELI = 1
+    YKSINPELI = 2
+    HAASTAVA_YKSINPELI = 3
 
 
 class KiviPaperiSakset:
@@ -56,3 +63,14 @@ class KPSHuonompiTekoaly(KPSTekoaly):
 class KPSParempiTekoaly(KPSTekoaly):
     def __init__(self):
         self.tekoaly = TekoalyParannettu(MEMORY_SIZE)
+
+
+def luo_peli(pelivalinta):
+    pelit = {
+        Pelit.KAKSINPELI: KPSPelaajaVsPelaaja(),
+        Pelit.YKSINPELI: KPSHuonompiTekoaly(),
+        Pelit.HAASTAVA_YKSINPELI: KPSParempiTekoaly()
+    }
+
+    peli = pelit[pelivalinta]
+    peli.pelaa()
